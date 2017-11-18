@@ -46,7 +46,7 @@ export const DISHES: Dish[] = [
     {
         id: 1,
         name: 'Zucchipakoda',
-        image: '/assets/images/zucchipakoda.png',
+        image: '/assets/images/005.png',
         category: 'appetizer',
         label: '',
         price: '1.99',
