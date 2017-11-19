@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RestangularModule, Restangular } from 'ngx-restangular';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 
+
 import 'hammerjs';
 
 import { AppComponent } from './app.component';
