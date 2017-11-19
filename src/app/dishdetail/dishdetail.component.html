@@ -57,6 +57,9 @@
         </md-input-container>
       </p>
       <p>
+        <md-slider flex min="1" max="5" step="1" thumbLabel tickInterval="1" ng-model="rating3" aria-label="rating" formControlName="rating" md-discrete ></md-slider>
+      </p>
+      <p>
         <md-input-container class="full-width" dividerColor="{{formErrors.comment ? 'warn' : 'primary'}}">
           <textarea mdInput formControlName="comment" placeholder="Your Comment" rows=6></textarea>
           <md-hint>
