@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Inject, ViewEncapsulation } from '@angular/core';
 
 import { Params, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
@@ -28,6 +28,7 @@ export class DishdetailComponent implements OnInit {
   next: number;
   comment: Comment;
   commentForm: FormGroup;
+  errMess: string;
 
 
   formErrors = {
@@ -46,10 +47,12 @@ export class DishdetailComponent implements OnInit {
       'maxlength': 'Comment cannot be more than 250',
     }
   }
-  constructor(private dishservice: DishService,
+
+   constructor(private dishservice: DishService,
     private route: ActivatedRoute,
     private location: Location,
-    private cb: FormBuilder) {
+    private cb: FormBuilder,
+    @Inject('BaseURL') private BaseURL) {
       this.createForm();
     }
 
@@ -58,7 +61,8 @@ export class DishdetailComponent implements OnInit {
       this.dishservice.getDishIds().subscribe(dishIds => this.dishIds = dishIds);
       this.route.params
         .switchMap((params: Params) => this.dishservice.getDish(+params['id']))
-        .subscribe(dish => {this.dish = dish; this.setPrevNext(dish.id);});
+        .subscribe(dish => {this.dish = dish; this.setPrevNext(dish.id);},
+          errmess => this.errMess = <any>errmess);
     } 
 
     createForm() {
@@ -70,7 +74,8 @@ export class DishdetailComponent implements OnInit {
       });
 
     this.commentForm.valueChanges
-      .subscribe(data => this.onValueChanged(data));
+      .subscribe(data => this.onValueChanged(data),
+        errmess => this.errMess = <any>errmess);
 
     this.onValueChanged(); //(re)set form validation messages
 

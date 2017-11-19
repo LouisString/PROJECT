@@ -8,7 +8,7 @@
           <h3>{{dish.name | uppercase}}</h3>
         </md-card-title>
       </md-card-header>
-      <img md-card-image src={{dish.image}} alt={{dish.name}}>
+      <img md-card-image src="{{BaseURL + dish.image}}" alt={{dish.name}}>
       <md-card-content>
         <p>{{dish.description}}</p>
       </md-card-content>
@@ -27,9 +27,13 @@
     </md-card>
   </div>
 
-  <div [hidden]="dish">
+  <div [hidden]="dish || errMess">
     <md-spinner></md-spinner>
     <h4>Loading . . . Please Wait</h4>
+  </div>
+  <div *ngIf="errMess">
+    <h2>Error</h2>
+    <h4>{{errMess}}</h4>
   </div>
 
 
@@ -46,7 +50,7 @@
     </md-list>
 
     <p>{{ commentForm.value | json }} {{ commentForm.status | json }}</p>
-    
+
     <form novalidate [formGroup]="commentForm" (ngSubmit)="onSubmit()">
       <p>
         <md-input-container class="full-width" dividerColor="{{formErrors.author ? 'warn' : 'primary'}}">
@@ -57,7 +61,8 @@
         </md-input-container>
       </p>
       <p>
-        <md-slider flex min="1" max="5" step="1" thumbLabel tickInterval="1" ng-model="rating3" aria-label="rating" formControlName="rating" md-discrete ></md-slider>
+        <md-slider flex min="1" max="5" step="1" thumbLabel tickInterval="1" ng-model="rating3" aria-label="rating" formControlName="rating"
+          md-discrete></md-slider>
       </p>
       <p>
         <md-input-container class="full-width" dividerColor="{{formErrors.comment ? 'warn' : 'primary'}}">
@@ -70,8 +75,12 @@
       <button type="submit" md-button class="background-primary text-floral-white" [disabled]="commentForm.invalid">Submit</button>
     </form>
   </div>
-  <div [hidden]="dish">
+  <div [hidden]="dish || errMess">
     <md-spinner></md-spinner>
     <h4>Loading . . . Please Wait</h4>
+  </div>
+  <div *ngIf="errMess">
+    <h2>Error</h2>
+    <h4>{{errMess}}</h4>
   </div>
 </div>
